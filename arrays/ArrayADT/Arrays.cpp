@@ -13,6 +13,12 @@ void display(struct Array arr){
     std::cout << std::endl; 
 }
 
+void swap(int *x,int *y){
+    int temp=*x;
+    *x=*y;
+    *y=temp;
+}
+
 void insert(struct Array *arr,int index,int x){
     if (index >= 0 && index <= arr->length) { // Agrega una verificación de índice válido
         for(int i=arr->length;i>index;i--){ //recorremos el array
@@ -77,6 +83,81 @@ int BinarySearch(struct Array *arr,int key){
     return -1;
 }
 
+int get (struct Array *arr,int index){
+    if(index>=0 && index<arr->length){
+        return arr->A[index];
+    }
+    return -1;
+}
+
+void set(struct Array *arr,int index,int x){
+    if(index>0&&index<arr->length){
+        arr->A[index]=x;
+    }
+}
+
+int max(struct Array *arr){
+    int max=arr->A[0];
+    for(int i=0;i<arr->length;i++){
+        if(arr->A[i]>max){
+            max=arr->A[i];
+        }
+    }
+    return max;
+
+}
+
+float sum(struct Array *arr){
+    float total=0;
+    for(int i=0;i<arr->length;i++){
+        total=total+arr->A[i];
+    }
+    return total;
+}
+
+float avg(struct Array *arr){
+    return sum(arr)/arr->length;
+}
+
+
+void insertOrderedList(struct Array *arr, int x){
+    int i=arr->length-1;
+    while(arr->A[i]>x){
+        arr->A[i+1]=arr->A[i];
+        i--;
+    }
+    arr->A[i+1]=x;
+    arr->length++;
+}
+
+bool isSorted(struct Array *arr){
+    for(int i=0;i<arr->length-1;i++){
+        if(arr->A[i]>arr->A[i+1]){
+            return false;
+        }
+    }
+    return true;
+}
+
+void negativeList(struct Array *arr){
+    int i,j;
+    i=0;
+    j=arr->length-1;
+
+    while(i<j){
+        while(arr->A[i]<0){
+            i++;
+        }
+        while(arr->A[j]>0){
+            j--;
+        }
+        swap(&arr->A[i],&arr->A[j]);
+    }
+
+
+
+}
+
 int main(){ 
     struct Array arr={{1,2,3,4,5},20,5}; //creamos un array
     // insert(&arr,2,5); //insertamos un elemento en el array
@@ -90,6 +171,20 @@ int main(){
     // Add(&arr,10); //añadimos un elemento al array
     // Add(&arr,10); //añadimos un elemento al array
     display(arr); //mostramos el array
+    std::cout << "El elemento en el indice 2 es: " << get(&arr,2) << std::endl;
+    set(&arr,4,10);
+    display(arr);
+    std::cout << "El elemento maximo es: " << max(&arr) << std::endl;
+    std::cout << "La suma de los elementos es: " << sum(&arr) << std::endl;
+    std::cout << "El promedio de los elementos es: " << avg(&arr) << std::endl;
+
+    insertOrderedList(&arr,6);
+    display(arr);
+    std::cout<<"Esta ordenada?: " <<isSorted(&arr)<<std::endl;
+
+    
+
+
 
     int indiceEncontrado=LinearSearch(&arr, 3);
     std::cout << "El elemento se encuentra en el indice: " << indiceEncontrado << std::endl;
