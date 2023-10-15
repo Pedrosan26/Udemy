@@ -17,6 +17,14 @@ int main(){
     list->getLength();
     list->print();
 
+    list->prepend(5);
+    list->prepend(4); //Number 4 should be the first value but 
+    list->deleteFirst(); // we delete number 4 so it wont show 
+    list->set(4,3); 
+    list->print();
+    std::cout<<list->get(2)->value;
+
+
     list->~LinkedList();
 
 }
