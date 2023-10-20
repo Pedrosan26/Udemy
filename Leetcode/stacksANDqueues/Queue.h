@@ -1,26 +1,26 @@
 #include "Node.h"
 #include <iostream>
 
-class Queue{
+class Queue{ //Queue class
 
-    private:
-    Node* first;
-    Node* Last;
+    private:  
+    Node* first;  
+    Node* Last; 
     int length;
 
     public:
-    Queue(int value){
-        Node* newNode= new Node(value);
+    Queue(int value){ //Constructor
+        Node* newNode= new Node(value); 
         first=newNode;
         Last=newNode;
         length=1;
     }
 
-    void printQueue(){
-        Node* temp=first;
-        while(temp!=nullptr){
-            std::cout<<temp->value<<" ";
-            temp=temp->next;
+    void printQueue(){ //Print the queue
+        Node* temp=first; //Create a temp node
+        while(temp!=nullptr){ //While temp is not null
+            std::cout<<temp->value<<" "; //Print the value
+            temp=temp->next; //Temp is the next element
         }
         std::cout<<std::endl;
     }
