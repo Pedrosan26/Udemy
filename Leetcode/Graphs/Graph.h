@@ -27,19 +27,30 @@ class Graph{
             }
 
 
-        bool addEdge(string vertex1, string vertex2) {
-            if (adjList.count(vertex1) != 0 && adjList.count(vertex2) != 0) {
-                adjList.at(vertex1).insert(vertex2);
-                adjList.at(vertex2).insert(vertex1);
+        bool addEdge(std::string vertex1, std::string vertex2) {
+            if (adjList.count(vertex1) != 0 && adjList.count(vertex2) != 0) { // se verifica si los vertices existen en el unordered_map
+                adjList.at(vertex1).insert(vertex2); // se inserta el vertice2 en el unordered_set del vertice1
+                adjList.at(vertex2).insert(vertex1); // se inserta el vertice1 en el unordered_set del vertice2
                 return true;
             }         
             return false;            
         }
 
-        bool removeEdge(string vertex1, string vertex2) {
-            if (adjList.count(vertex1) != 0 && adjList.count(vertex2) != 0) {
-                adjList.at(vertex1).erase(vertex2);
-                adjList.at(vertex2).erase(vertex1);
+        bool removeEdge(std::string vertex1, std::string vertex2) {
+            if (adjList.count(vertex1) != 0 && adjList.count(vertex2) != 0) { // se verifica si los vertices existen en el unordered_map
+                adjList.at(vertex1).erase(vertex2); // se elimina el vertice2 del unordered_set del vertice1
+                adjList.at(vertex2).erase(vertex1); // se elimina el vertice1 del unordered_set del vertice2
+                return true;
+            }
+            return false;
+        }
+
+        bool removeVertex(std::string vertex) {
+            if (adjList.count(vertex) != 0) { // se verifica si el vertice existe en el unordered_map
+                for (auto edge : adjList.at(vertex)) { // se itera sobre el unordered_set del vertice
+                    adjList.at(edge).erase(vertex); // se elimina el vertice del unordered_set de cada vertice adyacente
+                }
+                adjList.erase(vertex); // se elimina el vertice del unordered_map
                 return true;
             }
             return false;
