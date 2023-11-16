@@ -1,5 +1,7 @@
 import './App.css'
 import Header from './components/header'
+import Formulario from './components/Formulario'
+import ListadoPacientes from './components/ListadoPacientes'
 
 function App() {
 
@@ -13,7 +15,8 @@ function App() {
       <h1>Hola Mundo</h1>
     </div>
     <Header/>
-
+    <Formulario/>
+    <ListadoPacientes/>
   </>
   )
 }
