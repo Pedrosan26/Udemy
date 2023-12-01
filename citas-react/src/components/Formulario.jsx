@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Error from './error';
 
 const Formulario = ({pacientes,setPacientes}) => {
   const [nombre, setNombre] = useState('');
@@ -10,6 +10,13 @@ const Formulario = ({pacientes,setPacientes}) => {
 
   const [error, setError] = useState(false);
 
+
+  const generarId = () => {
+    const random =Math.random().toString(36).substring(2, 9);
+    const fecha=Date.now().toString(36)
+    return random+fecha
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if ([nombre, propietario, email, fecha, sintomas].includes('')) {
@@ -17,27 +24,28 @@ const Formulario = ({pacientes,setPacientes}) => {
       setError(true);
       return;
     } 
-      setError(false);
-      
+    setError(false);
+  
+    const objetoPaciente = {
+      nombre, 
+      propietario, 
+      email, 
+      fecha, 
+      sintomas,
+      id: generarId()
+    };
+  
+    console.log(objetoPaciente);
 
-      const objetoPaciente={
-        nombre, 
-        propietario, 
-        email, 
-        fecha, 
-        sintomas
-      }
+  setPacientes([...pacientes, objetoPaciente]);
 
-      console.log(objetoPaciente)
-
-      setPacientes([...pacientes,objetoPaciente])
-
-      setEmail=('')
-      setFecha=('')
-      setNombre=('')
-      setSintomas=('')
-      setPropietario=('')
-  };
+  // Usa las funciones set para actualizar los estados
+  setEmail('');
+  setFecha('');
+  setNombre('');
+  setSintomas('');
+  setPropietario('');
+};
 
   return (
     <div className='md:w-1/2 lg:w-2/5 mx-5'>
@@ -48,9 +56,7 @@ const Formulario = ({pacientes,setPacientes}) => {
       </p>
 
       {error && (
-        <div className='bg-red-800 text-white text-center uppercase mb-3 rounded'>
-          <p>Si hay un error</p>
-        </div>
+        <Error mensaje="Todos los campos son obligatorios"/>
       )}
 
       <form onSubmit={handleSubmit}>
